@@ -27,8 +27,8 @@ Base URL: http://localhost:5000/api
 - Method
   - POST
 - Request Body
-  - email
-  - password
+  - email as string
+  - password as string
 - Response
   ```
   {
