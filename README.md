@@ -2,12 +2,12 @@
 C241-PS196 Capstone Project
 
 ### Endpoint
-Base URL: http://localhost:5000/api
+Base URL:
 > Not deployed
 
 ### Register
 - URL
-  - auth/register
+  - api/auth/register
 - Method
   - POST
 - Request Body
@@ -23,7 +23,7 @@ Base URL: http://localhost:5000/api
 
 ### Login
 - URL
-  - auth/login
+  - api/auth/login
 - Method
   - POST
 - Request Body
