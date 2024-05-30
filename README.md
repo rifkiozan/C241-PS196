@@ -65,8 +65,8 @@ Base URL:
   - GET
 - Headers
   - Key: Authorization
-  - Value: Bearer <Token>
-  > Replace <Token> with your login token
+  - Value: Bearer 'Token'
+  > Replace 'Token' with your login token
 - Response
   ```
   {
