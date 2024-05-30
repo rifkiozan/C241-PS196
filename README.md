@@ -53,8 +53,8 @@ Base URL:
   ```
   {
     "status": "success",
-    "message": "Anda berhasil register",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzE3MDg1MTM2LCJleHAiOjE3MTcwODg3MzZ9.IaLYt65PgMOVxsGAz_tejVDSQRNeor4RmhAh6LsrIAw"
+    "message": "Anda berhasil login",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzE3MDg1MTU2LCJleHAiOjE3MTcwODg3NTZ9.K_Mp6nAaWhkaJ2DacRJTqf8YwZO2ljc2ciKHjd1G_bM"
   }
   ```
 
