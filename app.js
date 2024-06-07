@@ -1,13 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
-const protectedRoutes = require('./routes/protectedRoutes'); // Import protected routes
-
+const resetPasswordRoutes = require('./routes/resetPasswordRoutes');
+const protectedRoutes = require('./routes/protectedRoutes');
 const app = express();
 
 app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
-app.use('/api', protectedRoutes); // Gunakan protected routes
+app.use('/api', protectedRoutes);
+app.use('/api/reset-password', resetPasswordRoutes);
 
 module.exports = app;

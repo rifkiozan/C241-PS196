@@ -1,26 +1,42 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
+const { sendRegistrationEmail } = require('../services/emailService'); 
+
+// Fungsi untuk validasi email
+const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+};
 
 // Endpoint api/auth/register
 const register = async (req, res) => {
     const { name, email, password } = req.body;
+
+    if (!validateEmail(email)) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Invalid email format'
+        });
+    }
 
     try {
         // Hash password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Create user
-        const userId = await User.create(name, email, hashedPassword);
+        // Generate verification token
+        const verificationToken = jwt.sign({ email }, 'verificationSecret', { expiresIn: '1h' });
 
-        // Create JWT token
-        const token = jwt.sign({ id: userId }, 'test123', { expiresIn: '1h' });
+        // Create user with verificationToken
+        const userId = await User.create(name, email, hashedPassword, verificationToken);
+
+        // Send registration email with verificationToken
+        await sendRegistrationEmail(email, name, verificationToken);
 
         res.status(201).json({
             status: 'success',
-            message: 'Anda berhasil register',
-            token: token
+            message: 'Anda berhasil register'
         });
     } catch (err) {
         console.error(err.message);
@@ -30,7 +46,6 @@ const register = async (req, res) => {
         });
     }
 };
-
 
 // Endpoint api/auth/login
 const login = async (req, res) => {
@@ -43,6 +58,14 @@ const login = async (req, res) => {
             return res.status(404).json({
                 status: 'error',
                 message: 'User not found'
+            });
+        }
+
+        // Check if user's email is verified
+        if (!user.is_verified) {
+            return res.status(403).json({
+                status: 'error',
+                message: 'Email is not verified'
             });
         }
 
@@ -72,4 +95,35 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { register, login };
+// Endpoint untuk konfirmasi email
+const verifyEmail = async (req, res) => {
+    const { token } = req.params;
+
+    try {
+        // Find user by verification token
+        const user = await User.findByVerificationToken(token);
+
+        if (!user) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Invalid verification token'
+            });
+        }
+
+        // Update user verification status
+        await User.updateVerificationStatus(user.id);
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Email verified successfully'
+        });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Server Error'
+        });
+    }
+};
+
+module.exports = { register, login, verifyEmail };
