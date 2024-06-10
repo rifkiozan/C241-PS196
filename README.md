@@ -48,7 +48,7 @@ Base URL:
 ### Email Verification
 - URL
   - /api/auth/verify-email/'Token'
-  > Replace 'Token' with your your Email Verification token
+  > Replace 'Token' with your Email Verification token
 - Method
   - POST
 - Response
