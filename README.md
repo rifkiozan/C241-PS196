@@ -130,7 +130,7 @@ Base URL:
 
 ### Predict Pallette
 - URL
-  - https://capstone-uwrmimd5cq-et.a.run.app
+  - https://capstone-uwrmimd5cq-et.a.run.app/predict_palette
 - Method:
   - POST
 - Header
