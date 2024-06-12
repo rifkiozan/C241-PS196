@@ -138,6 +138,7 @@ Base URL:
 - Body
   - file (wajib): File gambar yang berisi wajah. Format yang didukung termasuk JPEG, PNG, dll.
 - Status : Sukses (200 OK):
+- Response
  ```
  {
 "extracted_skin_tone": "#aabbcc",
@@ -148,11 +149,13 @@ Base URL:
  "#0f0f0f"]
 }
  ```
-- Status : Kesalahan (400 Bad Request): 
+- Status : Kesalahan (400 Bad Request):
+- Response
  ```
 { "error": "No file part" }
  ```
-Status : No File Sended 
+- Status : No File Sended 
+- Response
  ```
 { "error": "No selected file" }
  ```
