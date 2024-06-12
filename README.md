@@ -126,3 +126,33 @@ Base URL:
     "userId": 3
   }
   ```
+
+
+### Predict Pallette
+- URL
+  - https://capstone-uwrmimd5cq-et.a.run.app
+- Method:
+  - POST
+- Header
+  - Content-Type: multipart/form-data
+- Body
+  - file (wajib): File gambar yang berisi wajah. Format yang didukung termasuk JPEG, PNG, dll.
+- Status : Sukses (200 OK):
+ ```
+ {
+"extracted_skin_tone": "#aabbcc",
+"predicted_palette": ["#123456",
+ "#654321",
+ "#abcdef",
+ "#fedcba",
+ "#0f0f0f"]
+}
+ ```
+- Status : Kesalahan (400 Bad Request): 
+ ```
+{ "error": "No file part" }
+ ```
+Status : No File Sended 
+ ```
+{ "error": "No selected file" }
+ ```
