@@ -14,14 +14,30 @@ C241-PS196 Capstone Project
     - verification_token
     ```
     CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    is_verified BOOLEAN DEFAULT FALSE.
-    verification_token VARCHAR(255)
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      password VARCHAR(255) NOT NULL,
+      is_verified BOOLEAN DEFAULT FALSE.
+      verification_token VARCHAR(255)
     );
     ```
+
+  - activities
+    - id
+    - email_users
+    - extracted_skin_tone
+    - predicted_palette JSON
+    ```
+    CREATE TABLE activities (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      email_users VARCHAR(255) NOT NULL,
+      extracted_skin_tone VARCHAR(7) NOT NULL,
+      predicted_palette JSON NOT NULL,
+      FOREIGN KEY (email_users) REFERENCES users(email)
+    );
+    ```
+    > Don't forget to add FOREIGN KEY for email_users
 
 ## Endpoint
 Base URL:
@@ -108,7 +124,7 @@ Base URL:
       "message": "Password reset successfully. A new password has been sent to your email."
     }
     ```
-    > 'Token' sent to the email still in JWT form not a Link (Will be an update)
+    > If you Click the Link from the email this step will be done automaticly
 
 ### Authorization
 - URL
@@ -127,6 +143,58 @@ Base URL:
   }
   ```
 
+### History
+- Add Activities
+  - URL
+    - api/save-activity
+  - Method
+    - POST
+  - Headers
+    - Key: Authorization
+    - Value: Bearer 'Token'
+    > Replace 'Token' with your login token
+  - Body
+    - extracted_skin_tone as string
+    - predicted_palette as string
+  - Response
+    ```
+    {
+      "msg": "Activity saved successfully"
+    }
+    ```
+
+- Get Activities
+  - URL
+    - api/activities
+  - Method
+    - GET
+  - Headers
+    - Key: Authorization
+    - Value: Bearer 'Token'
+    > Replace 'Token' with your login token
+  - Response
+    ```
+    [
+      {
+          "id": 1,
+          "email_users": "c299d4ky0837@bangkit.academy",
+          "extracted_skin_tone": "#7f543c",
+          "predicted_palette": "[\"#448347\",\"#7c8756\",\"#943e8e\",\"#6e63ac\",\"#555b83\"]"
+      },
+      {
+          "id": 2,
+          "email_users": "c299d4ky0837@bangkit.academy",
+          "extracted_skin_tone": "#ffffff",
+          "predicted_palette": "[\"#448347\",\"#7c8756\",\"#943e8e\",\"#6e63ac\",\"#555b83\"]"
+      },
+      {
+          "id": 3,
+          "email_users": "c299d4ky0837@bangkit.academy",
+          "extracted_skin_tone": "#ffffff",
+          "predicted_palette": "[\"#448347\",\"#7c8756\",\"#943e8e\",\"#6e63ac\",\"#555b83\"]"
+      }
+    ]
+    ```
 
 ### Predict Pallette
 - URL
@@ -139,23 +207,27 @@ Base URL:
   - file (wajib): File gambar yang berisi wajah. Format yang didukung termasuk JPEG, PNG, dll.
 - Status : Sukses (200 OK):
 - Response
- ```
- {
-"extracted_skin_tone": "#aabbcc",
-"predicted_palette": ["#123456",
- "#654321",
- "#abcdef",
- "#fedcba",
- "#0f0f0f"]
-}
- ```
+  ```
+  {
+    "extracted_skin_tone": "#aabbcc",
+    "predicted_palette": ["#123456",
+     "#654321",
+     "#abcdef",
+     "#fedcba",
+     "#0f0f0f"]
+  }
+  ```
 - Status : Kesalahan (400 Bad Request):
 - Response
- ```
-{ "error": "No file part" }
- ```
+  ```
+  {
+    "error": "No file part"
+  }
+  ```
 - Status : No File Sended 
 - Response
- ```
-{ "error": "No selected file" }
- ```
+  ```
+  {
+    "error": "No selected file"
+  }
+  ```
