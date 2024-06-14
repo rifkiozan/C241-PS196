@@ -40,7 +40,7 @@ C241-PS196 Capstone Project
     > Don't forget to add FOREIGN KEY for email_users
 
 ## Endpoint
-Base URL: http://35.219.99.255:5000
+Base URL: 
 
 ### Register
 - URL
