@@ -1,4 +1,4 @@
-# C241-PS196
+# HueTiful
 C241-PS196 Capstone Project
 
 ## Database
