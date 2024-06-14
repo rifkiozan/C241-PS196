@@ -38,7 +38,8 @@ const sendResetPasswordEmail = async (to, name, resetToken) => {
         subject: 'Password Reset Request',
         html: `
             <p>Hello ${name},</p>
-            <p>You requested to reset your password. Please use the following token to reset your password: <strong>${resetToken}</strong></p>
+            <p>You requested to reset your password. Please use <a href="http://localhost:5000/api/reset-password/verify-reset-token/${resetToken}">this link</a> to reset your password.</p>
+            <p>If you doesn't requested any password reset, please ignore this email.<p>
             <p>Thank you!</p>
         `
     };

@@ -54,7 +54,14 @@ const User = {
     async saveResetToken(userId, resetToken) {
         const connection = await db();
         await connection.query('UPDATE users SET reset_token = ? WHERE id = ?', [resetToken, userId]);
-    }
+    },
+
+    // Find id for activities table
+    async findById(id) {
+        const connection = await db();
+        const [rows] = await connection.query('SELECT * FROM users WHERE id = ?', [id]);
+        return rows[0];
+    },
 };
 
 module.exports = User;
