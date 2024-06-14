@@ -15,7 +15,7 @@ const sendRegistrationEmail = async (to, name, verificationToken) => {
         subject: 'Email Verification',
         html: `
             <p>Hello ${name},</p>
-            <p>Please finish your registration by clicking <a href="http://34.101.201.168:5000/api/auth/verify-email/${verificationToken}">this link</a> to verify your email.</p>
+            <p>Please finish your registration by clicking <a href="http://35.219.99.255:5000/api/auth/verify-email/${verificationToken}">this link</a> to verify your email.</p>
             <p>Thank you for joining us!</p>
             <p>Best regards,<br>HueTiful</p>
         `
@@ -38,7 +38,7 @@ const sendResetPasswordEmail = async (to, name, resetToken) => {
         subject: 'Password Reset Request',
         html: `
             <p>Hello ${name},</p>
-            <p>You requested to reset your password. Please use <a href="http://34.101.201.168:5000/api/reset-password/verify-reset-token/${resetToken}">this link</a> to reset your password.</p>
+            <p>You requested to reset your password. Please use <a href="http://35.219.99.255:5000/api/reset-password/verify-reset-token/${resetToken}">this link</a> to reset your password.</p>
             <p>If you doesn't requested any password reset, please ignore this email.<p>
             <p>Thank you!</p>
         `
