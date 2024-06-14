@@ -156,6 +156,7 @@ Base URL:
   - Body
     - extracted_skin_tone as string
     - predicted_palette as string
+    > Body is the same as the Machine Learning Response on Predict Pallette
   - Response
     ```
     {
