@@ -40,11 +40,11 @@ C241-PS196 Capstone Project
     > Don't forget to add FOREIGN KEY for email_users
 
 ## Endpoint
-Base URL: 
+Base URL: http://35.219.99.255:5000
 
 ### Register
 - URL
-  - api/auth/register
+  - /api/auth/register
 - Method
   - POST
 - Request Body
@@ -77,7 +77,7 @@ Base URL:
 
 ### Login
 - URL
-  - api/auth/login
+  - /api/auth/login
 - Method
   - POST
 - Request Body
@@ -127,7 +127,7 @@ Base URL:
 
 ### Authorization
 - URL
-  - api/protected
+  - /api/protected
 - Method
   - GET
 - Headers
@@ -145,7 +145,7 @@ Base URL:
 ### History
 - Add Activities
   - URL
-    - api/save-activity
+    - /api/save-activity
   - Method
     - POST
   - Headers
@@ -165,7 +165,7 @@ Base URL:
 
 - Get Activities
   - URL
-    - api/activities
+    - /api/activities
   - Method
     - GET
   - Headers
