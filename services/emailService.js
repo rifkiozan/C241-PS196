@@ -1,7 +1,11 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-
+    service: 'gmail',
+    auth: {
+        user: 'huetifulproject@gmail.com',
+        pass: 'oenv rbpk extr jhbf'
+    }
 });
 
 const sendRegistrationEmail = async (to, name, verificationToken) => {
