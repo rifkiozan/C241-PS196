@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const { sendRegistrationEmail } = require('../services/emailService');
 
-// Fungsi untuk validasi email
+// Email validation function
 const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
@@ -15,7 +15,7 @@ const validateEmail = (email) => {
     return { isValid: true, error: null };
 };
 
-// Endpoint api/auth/register
+// Register endpoint
 const register = async (req, res) => {
     const { name, email, password } = req.body;
 
@@ -55,10 +55,7 @@ const register = async (req, res) => {
     }
 };
 
-module.exports = { register };
-
-
-// Endpoint api/auth/login
+// Login endpoint
 const login = async (req, res) => {
     const { email, password } = req.body;
 
@@ -106,7 +103,7 @@ const login = async (req, res) => {
     }
 };
 
-// Endpoint untuk konfirmasi email
+// Verify email endpoint
 const verifyEmail = async (req, res) => {
     const { token } = req.params;
 
