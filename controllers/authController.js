@@ -1,22 +1,30 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-const { sendRegistrationEmail } = require('../services/emailService'); 
+const { sendRegistrationEmail } = require('../services/emailService');
 
 // Fungsi untuk validasi email
 const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
+    if (!email) {
+        return { isValid: false, error: 'Email is required' };
+    }
+    if (!re.test(String(email).toLowerCase())) {
+        return { isValid: false, error: 'Invalid email format' };
+    }
+    return { isValid: true, error: null };
 };
 
 // Endpoint api/auth/register
 const register = async (req, res) => {
     const { name, email, password } = req.body;
 
-    if (!validateEmail(email)) {
+    const emailValidation = validateEmail(email);
+    if (!emailValidation.isValid) {
+        console.log(`Error: ${emailValidation.error} - Provided email: ${email}`);
         return res.status(400).json({
             status: 'error',
-            message: 'Invalid email format'
+            message: emailValidation.error
         });
     }
 
@@ -46,6 +54,9 @@ const register = async (req, res) => {
         });
     }
 };
+
+module.exports = { register };
+
 
 // Endpoint api/auth/login
 const login = async (req, res) => {
